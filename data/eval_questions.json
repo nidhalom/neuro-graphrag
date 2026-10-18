@@ -1,0 +1,120 @@
+[
+ {
+  "id": "q1",
+  "question": "Which papers use a spatial filter method on motor imagery?",
+  "answer_type": "set",
+  "answer": [
+   "syn-01",
+   "syn-03",
+   "syn-12"
+  ],
+  "hops": 2,
+  "note": "family + paradigm; xDAWN (P300) must be excluded"
+ },
+ {
+  "id": "q2",
+  "question": "Which CNN methods were evaluated on BCI Competition IV 2a?",
+  "answer_type": "set",
+  "answer": [
+   "EEGNet"
+  ],
+  "hops": 3,
+  "note": "family -> method -> paper -> dataset"
+ },
+ {
+  "id": "q3",
+  "question": "Which methods are used for both motor imagery and P300?",
+  "answer_type": "set",
+  "answer": [
+   "EEGNet",
+   "LDA",
+   "Riemannian tangent space",
+   "SVM"
+  ],
+  "hops": 3,
+  "note": "methods bridging two paradigms"
+ },
+ {
+  "id": "q4",
+  "question": "Count papers per method on motor imagery.",
+  "answer_type": "counts",
+  "answer": {
+   "CSP": 2,
+   "SVM": 2,
+   "Fuzzy classifier": 2,
+   "LDA": 1,
+   "EEGNet": 1,
+   "FBCSP": 1,
+   "Random Forest": 1,
+   "Riemannian tangent space": 1,
+   "ShallowConvNet": 1,
+   "DeepConvNet": 1,
+   "Transformer": 1
+  },
+  "hops": 2,
+  "note": "aggregation"
+ },
+ {
+  "id": "q5",
+  "question": "Which datasets were used for P300 studies?",
+  "answer_type": "set",
+  "answer": [
+   "BNCI Horizon 2020 P300",
+   "BCI Competition IV 2a"
+  ],
+  "hops": 2,
+  "note": "paradigm -> paper -> dataset (syn-09 also uses 2a)"
+ },
+ {
+  "id": "q6",
+  "question": "Which paper reports the highest accuracy on BCI Competition IV 2a?",
+  "answer_type": "set",
+  "answer": [
+   "syn-11"
+  ],
+  "hops": 2,
+  "note": "aggregation (max)"
+ },
+ {
+  "id": "q7",
+  "question": "Which classical machine learning methods have been evaluated on SSVEP?",
+  "answer_type": "set",
+  "answer": [
+   "SVM"
+  ],
+  "hops": 3,
+  "note": "family + paradigm"
+ },
+ {
+  "id": "q8",
+  "question": "Which papers use both EEGNet and SVM?",
+  "answer_type": "set",
+  "answer": [
+   "syn-08"
+  ],
+  "hops": 2,
+  "note": "conjunction over methods"
+ },
+ {
+  "id": "q9",
+  "question": "How are fuzzy classifier and EEGNet connected?",
+  "answer_type": "set",
+  "answer": [
+   "motor imagery"
+  ],
+  "hops": 4,
+  "note": "shortest path; bridging entity"
+ },
+ {
+  "id": "q10",
+  "question": "Which methods were evaluated on the Benchmark SSVEP dataset?",
+  "answer_type": "set",
+  "answer": [
+   "CCA",
+   "EEGNet",
+   "SVM"
+  ],
+  "hops": 2,
+  "note": "easy 2-hop lookup"
+ }
+]
