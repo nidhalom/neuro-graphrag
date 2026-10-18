@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.svg" alt="NeuroGraph — Graph the brain research. Then ask it." width="100%"></p>
+
 # neuro-graphrag
 
 GraphRAG for brain-computer-interface research: it turns EEG/BCI paper abstracts into a knowledge graph

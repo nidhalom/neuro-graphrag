@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-label="NeuroGraph — Graph the brain research. Then ask it.">
+  <defs>
+    <radialGradient id="bg" cx="25%" cy="50%" r="90%">
+      <stop offset="0" stop-color="#2a0f3d"/>
+      <stop offset="1" stop-color="#0b0612"/>
+    </radialGradient>
+    <linearGradient id="title" x1="0" x2="1">
+      <stop offset="0" stop-color="#c4b5fd"/>
+      <stop offset="1" stop-color="#f9a8d4"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <style>
+    .edge{stroke:#a78bfa;stroke-opacity:.55;stroke-width:2;stroke-dasharray:4 8;animation:flow 2.4s linear infinite}
+    .edge.hot{stroke:#f472b6;stroke-opacity:.9}
+    @keyframes flow{to{stroke-dashoffset:-48}}
+    .n{fill:#c4b5fd;transform-box:fill-box;transform-origin:center;animation:pulse 3s ease-in-out infinite}
+    .n.p{fill:#f472b6}
+    .d1{animation-delay:.4s}.d2{animation-delay:.8s}.d3{animation-delay:1.2s}.d4{animation-delay:1.6s}.d5{animation-delay:2s}.d6{animation-delay:2.4s}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.6);opacity:1}}
+    .brain{animation:breathe 6s ease-in-out infinite;transform-origin:250px 200px}
+    @keyframes breathe{0%,100%{opacity:.35}50%{opacity:.7}}
+    .cursor{animation:blink 1s steps(1) infinite}
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+    text{font-family:'Segoe UI',Inter,Helvetica,Arial,sans-serif}
+  </style>
+  <rect width="1280" height="400" fill="url(#bg)"/>
+
+  <!-- brain silhouette -->
+  <path class="brain" d="M250 70 C320 60 395 100 400 170 C430 190 425 260 380 280 C370 330 300 345 255 325 C210 345 140 330 125 285 C80 265 75 195 110 170 C110 105 180 65 250 70 Z M250 75 V325" fill="none" stroke="#a78bfa" stroke-width="3" filter="url(#glow)"/>
+
+  <!-- graph -->
+  <g filter="url(#glow)">
+    <line class="edge" x1="170" y1="150" x2="245" y2="120"/>
+    <line class="edge hot" x1="245" y1="120" x2="330" y2="150"/>
+    <line class="edge" x1="170" y1="150" x2="190" y2="235"/>
+    <line class="edge hot" x1="330" y1="150" x2="320" y2="240"/>
+    <line class="edge" x1="190" y1="235" x2="255" y2="275"/>
+    <line class="edge hot" x1="255" y1="275" x2="320" y2="240"/>
+    <line class="edge" x1="245" y1="120" x2="255" y2="200"/>
+    <line class="edge hot" x1="255" y1="200" x2="320" y2="240"/>
+    <line class="edge" x1="190" y1="235" x2="255" y2="200"/>
+    <line class="edge" x1="330" y1="150" x2="370" y2="215"/>
+    <circle class="n" cx="170" cy="150" r="7"/>
+    <circle class="n p d1" cx="245" cy="120" r="8"/>
+    <circle class="n d2" cx="330" cy="150" r="7"/>
+    <circle class="n p d3" cx="255" cy="200" r="9"/>
+    <circle class="n d4" cx="190" cy="235" r="7"/>
+    <circle class="n p d5" cx="320" cy="240" r="8"/>
+    <circle class="n d6" cx="255" cy="275" r="7"/>
+    <circle class="n d2" cx="370" cy="215" r="6"/>
+  </g>
+  <g font-size="13" fill="#e9d5ff" opacity=".8">
+    <text x="225" y="106" text-anchor="middle">EEGNet</text><text x="330" y="134" text-anchor="middle">CSP</text><text x="255" y="226" text-anchor="middle">motor imagery</text><text x="320" y="264" text-anchor="middle">BCI IV-2a</text>
+  </g>
+
+  <text x="470" y="185" font-size="100" font-weight="800" fill="url(#title)" filter="url(#glow)">NeuroGraph</text>
+  <text x="474" y="240" font-size="34" fill="#e9d5ff">Graph the brain research. Then ask it.</text>
+  <g font-size="20">
+    <rect x="474" y="275" width="640" height="44" rx="22" fill="#f472b6" fill-opacity=".14" stroke="#f472b6" stroke-opacity=".6"/>
+    <text x="498" y="304" fill="#fbcfe8">› Which CNNs were tested on motor-imagery datasets?</text><rect class="cursor" x="1086" y="288" width="10" height="20" fill="#f472b6"/>
+  </g>
+</svg>
