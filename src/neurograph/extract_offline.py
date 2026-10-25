@@ -33,6 +33,27 @@ _SAMPLING = [
 ]
 
 
+# A value right after one of these words is the comparison, not the paper's own result.
+_COMPARISON_BEFORE = re.compile(r"(?:versus|vs\.?|compared(?:\s+(?:to|with))?|than|baseline\w*)\s*$", re.I)
+_BASELINE_AFTER = re.compile(r"baseline|state[\s\-]of[\s\-]the[\s\-]art|previous|prior", re.I)
+
+
+def _own_result(pats, text) -> float | None:
+    """Best value reported for the paper itself, skipping values given for baselines or prior work."""
+    own, every = [], []
+    for rx in pats:
+        for m in rx.finditer(text):
+            value = float(m.group(1))
+            every.append(value)
+            before = text[max(0, m.start() - 25):m.start()]
+            after = re.split(r"\d", text[m.end():m.end() + 60], maxsplit=1)[0]
+            if not (_COMPARISON_BEFORE.search(before) or _BASELINE_AFTER.search(after)):
+                own.append(value)
+    if not every:
+        return None
+    return max(own) if own else max(every)
+
+
 def _first_int(patterns, text) -> int | None:
     for rx in patterns:
         m = rx.search(text)
@@ -58,9 +79,9 @@ def extract_text(text: str) -> PaperExtraction:
 
     metrics = []
     for name, unit, pats in _METRIC_PATTERNS:
-        vals = [float(g) for rx in pats for g in rx.findall(text)]
-        if vals:
-            metrics.append(MetricValue(name=name, value=max(vals), unit=unit))
+        value = _own_result(pats, text)
+        if value is not None:
+            metrics.append(MetricValue(name=name, value=value, unit=unit))
 
     sr = None
     for rx in _SAMPLING:

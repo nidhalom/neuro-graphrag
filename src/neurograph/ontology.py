@@ -99,6 +99,13 @@ def _compiled() -> tuple[tuple[Entry, re.Pattern], ...]:
     return tuple((e, _compile(a)) for e in ENTRIES for a in e.aliases)
 
 
+# Short aliases that mean something else in many BCI abstracts (e.g. "MI" for mutual information).
+# They only count when the text also spells out the long form somewhere.
+_AMBIGUOUS = {
+    (S.PARADIGM, "motor imagery", "MI"): re.compile(r"motor[\s\-]+imager|imagined[\s\-]+movement", re.I),
+}
+
+
 def find_mentions(text: str, types: tuple[str, ...] | None = None) -> list[Mention]:
     """Longest-match-first, non-overlapping entity linking. Returned in text order."""
     cands = []
@@ -106,6 +113,9 @@ def find_mentions(text: str, types: tuple[str, ...] | None = None) -> list[Menti
         if types and e.type not in types:
             continue
         for m in rx.finditer(text):
+            long_form = _AMBIGUOUS.get((e.type, e.name, m.group(0)))
+            if long_form is not None and not long_form.search(text):
+                continue
             cands.append(Mention(e.type, e.name, m.start(), m.end()))
     cands.sort(key=lambda m: (-(m.end - m.start), m.start))
     taken: list[Mention] = []
