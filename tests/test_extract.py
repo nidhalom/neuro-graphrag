@@ -73,3 +73,19 @@ def test_llm_extractor_rejects_bad_json_and_refusal():
     with pytest.raises(LLMExtractionError):
         LLMExtractor(client=_Client("", stop="refusal")).extract(PAPER)
     assert parse_json_object('noise {"a": 1} tail') == {"a": 1}
+
+
+def test_mi_abbreviation_needs_the_long_form():
+    from neurograph.ontology import find_mentions
+    mutual = "Channels were ranked by mutual information (MI) before classification of P300 epochs."
+    assert [m.name for m in find_mentions(mutual) if m.type == "Paradigm"] == ["P300"]
+    motor = "We decode motor imagery (MI) from 22 channels; MI trials last 4 s."
+    assert {m.name for m in find_mentions(motor) if m.type == "Paradigm"} == {"motor imagery"}
+
+
+def test_metric_skips_the_baseline_value():
+    from neurograph.extract_offline import extract_text
+    ex = extract_text("Our model reaches an accuracy of 71.2% versus 84.5% accuracy for the baseline EEGNet.")
+    assert [(m.name, m.value) for m in ex.metrics] == [("accuracy", 71.2)]
+    ex = extract_text("The proposed method obtained 82.0% accuracy, compared with 75.0% accuracy for CSP+LDA.")
+    assert [(m.name, m.value) for m in ex.metrics] == [("accuracy", 82.0)]
